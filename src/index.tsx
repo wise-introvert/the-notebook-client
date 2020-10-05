@@ -1,39 +1,35 @@
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 import {
   ApolloClient,
   ApolloProvider,
-  NormalizedCacheObject,
-  InMemoryCache
+  InMemoryCache,
+  NormalizedCacheObject
 } from "@apollo/client";
 import { createHttpLink } from "apollo-link-http";
+import config from "react-global-configuration";
 
-import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import getConfig, { Config } from "./config";
+
+const globalConfig: Config = getConfig();
+config.set({
+  ...globalConfig
+});
 
 const link: any = createHttpLink({
-  uri:
-    process.env.NODE_ENV === "production"
-      ? "https://the-notebook-graph.herokuapp.com/graphql"
-      : "http://localhost:4000/graphql",
-  credentials: "include"
+  uri: config.get("cred.api.url"),
+  credentials: config.get("cred.apollo.link.credentials")
 });
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-  link,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  link
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </ApolloProvider>,
+  <React.StrictMode>
+    <ApolloProvider client={client}>
+      <div>Hello</div>
+    </ApolloProvider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-// serviceWorker.register();
