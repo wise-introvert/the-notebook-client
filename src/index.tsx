@@ -7,10 +7,9 @@ import {
   NormalizedCacheObject
 } from "@apollo/client";
 import { createHttpLink } from "apollo-link-http";
-import "./index.scss";
 
+import "./index.scss";
 import getConfig, { Config } from "./config";
-import { Wrapper } from "./wrapper";
 
 const config: Config = getConfig();
 
@@ -26,7 +25,7 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <Wrapper />
+      <div>Hello</div>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
