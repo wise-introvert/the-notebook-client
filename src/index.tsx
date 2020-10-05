@@ -7,18 +7,16 @@ import {
   NormalizedCacheObject
 } from "@apollo/client";
 import { createHttpLink } from "apollo-link-http";
-import config from "react-global-configuration";
+import "./index.scss";
 
 import getConfig, { Config } from "./config";
+import { Wrapper } from "./wrapper";
 
-const globalConfig: Config = getConfig();
-config.set({
-  ...globalConfig
-});
+const config: Config = getConfig();
 
 const link: any = createHttpLink({
-  uri: config.get("cred.api.url"),
-  credentials: config.get("cred.apollo.link.credentials")
+  uri: config.cred.api.url,
+  credentials: config.cred.apollo.link.credentials
 });
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache: new InMemoryCache(),
@@ -28,7 +26,7 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <div>Hello</div>
+      <Wrapper />
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

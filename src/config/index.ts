@@ -1,7 +1,7 @@
-import * as production from "./production.json";
-import * as development from "./development.json";
-import * as test from "./test.json";
-import * as defaultConfig from "./default.json";
+import production from "./production.json";
+import development from "./development.json";
+import test from "./test.json";
+import defaultConfig from "./default.json";
 
 export type Config = {
   cred: {
@@ -16,7 +16,7 @@ export type Config = {
   };
 };
 
-export default (): Config => {
+const getConfig = (): Config => {
   const { NODE_ENV = "development" } = process.env;
   let config: Config;
   switch (NODE_ENV) {
@@ -36,3 +36,5 @@ export default (): Config => {
 
   return config;
 };
+
+export default getConfig;
