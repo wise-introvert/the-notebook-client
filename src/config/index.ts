@@ -4,6 +4,14 @@ import test from "./test.json";
 import defaultConfig from "./default.json";
 
 export type Config = {
+  routes: {
+    root: string;
+    user: {
+      root: string;
+      profile: string;
+      auth: string;
+    };
+  };
   cred: {
     api: {
       url: string;

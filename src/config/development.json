@@ -1,4 +1,12 @@
 {
+  "routes": {
+    "root": "/",
+    "user": {
+      "root": "/user",
+      "profile": "/me",
+      "auth": "/auth"
+    }
+  },
   "cred": {
     "api": {
       "url": "http://localhost:4000/graphql"

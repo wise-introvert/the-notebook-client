@@ -33,7 +33,9 @@ export const MessageBox: React.FunctionComponent<MessageBoxProps> = ({
       <span className={`${styles.messagebox} ${className && className}`}>
         <ul>
           {errors?.map((e: string) => (
-            <li key={e}>{e}</li>
+            <li key={e}>
+              <small>{e}</small>
+            </li>
           ))}
         </ul>
       </span>
