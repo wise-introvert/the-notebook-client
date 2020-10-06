@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Spinner } from "../spinner";
 
 import { AuthenticationContext, AuthenticationContextState } from "./context";
 import styles from "./styles.module.scss";
@@ -23,7 +24,7 @@ export const LoginButton: React.FunctionComponent<LoginButtonProps> = ({
       }}
       className={`${styles.loginbutton} ${className && className}`}
     >
-      Login
+      {loading ? <Spinner size={20} color={"#fff"} /> : "Login"}
     </button>
   );
 };
