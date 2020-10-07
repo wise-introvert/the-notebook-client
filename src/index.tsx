@@ -28,7 +28,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ApolloProvider client={client}>
-        <div />
+        <h1>hello</h1>
       </ApolloProvider>
     </Router>
   </React.StrictMode>,
