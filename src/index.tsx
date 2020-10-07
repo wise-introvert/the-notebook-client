@@ -11,7 +11,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import "./index.scss";
 import getConfig, { Config } from "./config";
-import { Wrapper } from "./wrapper";
 import * as serviceWorker from "./serviceWorker";
 
 const config: Config = getConfig();
@@ -29,7 +28,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ApolloProvider client={client}>
-        <Wrapper />
+        <div />
       </ApolloProvider>
     </Router>
   </React.StrictMode>,
