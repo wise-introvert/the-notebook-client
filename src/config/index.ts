@@ -6,6 +6,9 @@ import defaultConfig from "./default.json";
 export type Config = {
   routes: {
     root: string;
+    home: {
+      root: string;
+    };
     user: {
       root: string;
       profile: string;

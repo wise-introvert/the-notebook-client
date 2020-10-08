@@ -16,6 +16,7 @@ export const Card: React.FunctionComponent<CardProps> = ({
 }: CardProps): React.ReactElement => {
   return (
     <div
+      {...(onClick && { onClick })}
       className={`${styles.card} ${onClick && styles.hover} ${className || ""}`}
       style={style || {}}
     >

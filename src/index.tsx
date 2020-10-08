@@ -7,11 +7,13 @@ import {
   NormalizedCacheObject
 } from "@apollo/client";
 import { createHttpLink } from "apollo-link-http";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./index.scss";
 import getConfig, { Config } from "./config";
 import * as serviceWorker from "./serviceWorker";
+import { HomePage, AuthenticationPage } from "./pages";
+import { ProtectedRoute } from "./components";
 
 const config: Config = getConfig();
 
@@ -26,11 +28,22 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <ApolloProvider client={client}>
-        <h1>hello</h1>
-      </ApolloProvider>
-    </Router>
+    <ApolloProvider client={client}>
+      <Router>
+        <Switch>
+          <Route
+            exact
+            path={config.routes.user.auth}
+            component={AuthenticationPage}
+          />
+          <ProtectedRoute
+            exact
+            path={config.routes.home.root}
+            component={HomePage}
+          />
+        </Switch>
+      </Router>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

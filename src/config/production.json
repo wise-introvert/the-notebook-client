@@ -1,6 +1,9 @@
 {
   "routes": {
     "root": "/",
+    "home": {
+      "root": "/"
+    },
     "user": {
       "root": "/user",
       "profile": "/me",
