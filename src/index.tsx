@@ -13,7 +13,7 @@ import "./index.scss";
 import getConfig, { Config } from "./config";
 import * as serviceWorker from "./serviceWorker";
 import { HomePage, AuthenticationPage } from "./pages";
-import { ProtectedRoute } from "./components";
+import { LockedRoute, ProtectedRoute } from "./components";
 
 const config: Config = getConfig();
 
@@ -31,7 +31,7 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <Router>
         <Switch>
-          <Route
+          <LockedRoute
             exact
             path={config.routes.user.auth}
             component={AuthenticationPage}
