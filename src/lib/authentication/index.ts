@@ -10,3 +10,15 @@ export const isLoggedIn = (): boolean => {
     return false;
   }
 };
+
+export const getRole = (): string => {
+  const cookies: Cookies = new Cookies();
+  const role: string = cookies.get("role");
+  return role;
+};
+
+export const isBoss = (): boolean => {
+  const cookies: Cookies = new Cookies();
+  const role: any = cookies.get("role");
+  return role === "ADMIN" || role === "TEACHER";
+};

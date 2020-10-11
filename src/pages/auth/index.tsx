@@ -17,6 +17,7 @@ export const AuthenticationPage: React.FunctionComponent<AuthenticationPageProps
       onLogin={async (data: any): Promise<void> => {
         console.log("data: ", data);
         new Cookies().set("session", true);
+        new Cookies().set("role", data.login.role);
         props.history.push(config.routes.home.root);
       }}
     >
