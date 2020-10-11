@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router";
 
 import { RefreshMutation } from "../../api";
 import { Card, Navbar } from "../../components";
-import { Course, Data, Department, Subject } from "./fake.data";
+import { Course, Data, Department, Subject, data } from "./fake.data";
 import styles from "./styles.module.scss";
 import errorSVG from "../../lib/assets/images/error.svg";
 
@@ -13,9 +13,10 @@ type All = Department | Course | Subject | Document;
 
 type HomePageProps = RouteComponentProps<{}>;
 export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactElement => {
-  const [l, setL] = React.useState<boolean>(false);
+  const [l, setL] = React.useState<boolean>(true);
   const [refresh, { loading: refreshLoading }] = useMutation(RefreshMutation);
-  const [getData, { data, loading, error }] = useLazyQuery(gql`
+  /*
+   const [getData, { data, loading, error }] = useLazyQuery(gql`
     query get {
       departments {
         id
@@ -36,8 +37,17 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
       }
     }
   `);
+   */
   const [selection, setSelection] = React.useState<Selection>({} as Selection);
 
+  React.useEffect(() => {
+    setL(true);
+    console.log(data);
+    setSelection(data.departments);
+    setL(false);
+  }, []);
+
+  /*
   React.useEffect(() => {
     setL(true);
     getData();
@@ -58,6 +68,7 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
       setSelection(data.departments);
     }
   }, [data]);
+   */
 
   const extractArray = (obj: All): Selection | null => {
     const re: RegExp = new RegExp(
@@ -70,7 +81,7 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
   };
 
   const getTitle = (current: any): string => {
-    return current.__typename;
+    return "Lorem"; // current.__typename;
     /*
     console.log(Object.keys(current));
     if ("url" in current) {
@@ -85,6 +96,11 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
      */
   };
 
+  if (l || !selection) {
+    return <div>Loading</div>;
+  }
+
+  /*
   if (refreshLoading || loading || !data || l) {
     return <div>loading</div>;
   }
@@ -96,6 +112,7 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
       </div>
     );
   }
+   */
 
   return false ? (
     <pre>{JSON.stringify(data, null, 2)}</pre>
