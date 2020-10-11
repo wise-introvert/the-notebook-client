@@ -5,6 +5,7 @@ export const LoginMutation = gql`
     login(input: $input) {
       id
       username
+      role
     }
   }
 `;

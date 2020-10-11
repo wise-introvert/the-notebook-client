@@ -14,7 +14,8 @@ export const AuthenticationPage: React.FunctionComponent<AuthenticationPageProps
 ): React.ReactElement => (
   <div className={styles.container}>
     <Authentication
-      onLogin={async (): Promise<void> => {
+      onLogin={async (data: any): Promise<void> => {
+        console.log("data: ", data);
         new Cookies().set("session", true);
         props.history.push(config.routes.home.root);
       }}
