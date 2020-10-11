@@ -36,11 +36,14 @@ ReactDOM.render(
             path={config.routes.user.auth}
             component={AuthenticationPage}
           />
+          <Route exact path={config.routes.home.root} component={HomePage} />
+          {/*
           <ProtectedRoute
             exact
             path={config.routes.home.root}
             component={HomePage}
           />
+          */}
         </Switch>
       </Router>
     </ApolloProvider>
