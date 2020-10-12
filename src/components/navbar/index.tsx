@@ -17,7 +17,7 @@ type NavbarProps = {
 const _Navbar: React.FunctionComponent<NavbarProps> = ({
   logo,
   className,
-  history
+  history,
 }: NavbarProps): React.ReactElement => {
   const [logout, { loading }] = useMutation(LogoutMutation);
 
@@ -38,6 +38,7 @@ const _Navbar: React.FunctionComponent<NavbarProps> = ({
       <div className={styles.navbarLinks}>
         {isLoggedIn() ? (
           <button
+            className={styles.logoutButton}
             disabled={loading}
             onClick={() => {
               logout().then(() => history.push(config.routes.user.auth));
