@@ -16,22 +16,19 @@ type HomePageProps = RouteComponentProps<{}>;
 export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactElement => {
   const [l, setL] = React.useState<boolean>(true);
   const [refresh, { loading: refreshLoading }] = useMutation(RefreshMutation);
+  const [history, setHistory] = React.useState<Selection[]>([]);
   const [getData, { data, loading, error }] = useLazyQuery(gql`
     query get {
-      departments {
+      courses {
         id
         name
-        courses {
+        subjects {
           id
           name
-          subjects {
+          documents {
             id
             name
-            documents {
-              id
-              name
-              url
-            }
+            url
           }
         }
       }
@@ -53,10 +50,15 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
   }, [error]);
 
   React.useEffect(() => {
+    setHistory((oldHistory: any) => [...oldHistory, selection]);
+    console.log(history);
+  }, [selection]);
+
+  React.useEffect(() => {
     console.log("data: ", data);
     if (data) {
       setL(false);
-      setSelection(data.departments);
+      setSelection(data.courses);
     }
   }, [data]);
 
@@ -96,7 +98,9 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
     <div className={styles.container}>
       <Navbar logo={logo} />
       <div style={{ paddingTop: "64px" }}>
-        <span className={`title ${styles.heading}`}>{getTitle(selection[0])}</span>
+        <span className={`title ${styles.heading}`}>
+          {getTitle(selection[0])}
+        </span>
         <div className={styles.content}>
           {(selection as any[]).map((s: any) => (
             <Card
