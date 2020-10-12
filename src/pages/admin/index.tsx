@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Container } from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
 import { RouteComponentProps } from "react-router";
 
 import { Modal, Card, Navbar } from "../../components";
 import { AddUserForm } from "./forms";
+import styles from "./styles.module.scss";
 
 type AdminProps = RouteComponentProps<{}>;
 type Option = {
@@ -12,6 +13,7 @@ type Option = {
 };
 export const AdminPage: React.FunctionComponent<AdminProps> = (): React.ReactElement => {
   const [open, setOpen] = React.useState<boolean>(false);
+  const [selection, setSelection] = React.useState<Option>();
 
   const options: Option[] = [
     {
@@ -23,24 +25,29 @@ export const AdminPage: React.FunctionComponent<AdminProps> = (): React.ReactEle
   return (
     <>
       <Navbar />
-      <Container style={{ padding: "78px 1em 1em 1em" }}>
-        {options.map((option: Option) => (
-          <>
-            <Card
-              style={{
-                width: "100%",
-                height: "48px",
-                borderRadius: ".1em 1em"
-              }}
-              key={Math.random()}
-              onClick={() => setOpen(true)}
-            >
-              {option.label}
-            </Card>
-            <Modal open={open}>{option.Component}</Modal>
-          </>
-        ))}
+      <Container>
+        <Grid container spacing={1} style={{ paddingTop: "calc(64px + 1em)" }}>
+          {options.map((option: Option) => (
+            <Grid key={Math.random()} item xs={12} container>
+              <Grid item xs={2} />
+              <Grid item xs={8}>
+                <Card
+                  className={styles.card}
+                  key={Math.random()}
+                  onClick={() => {
+                    setSelection(option);
+                    setOpen(true);
+                  }}
+                >
+                  {option.label}
+                </Card>
+              </Grid>
+              <Grid item xs={2} />
+            </Grid>
+          ))}
+        </Grid>
       </Container>
+      <Modal open={open}>{selection?.Component}</Modal>
     </>
   );
 };

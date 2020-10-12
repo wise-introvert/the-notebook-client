@@ -17,7 +17,7 @@ type NavbarProps = {
 const _Navbar: React.FunctionComponent<NavbarProps> = ({
   logo,
   className,
-  history,
+  history
 }: NavbarProps): React.ReactElement => {
   const [logout, { loading }] = useMutation(LogoutMutation);
 
@@ -57,7 +57,7 @@ const _Navbar: React.FunctionComponent<NavbarProps> = ({
             }}
             className={styles.settings}
           >
-            <AiOutlineSetting size={"1.5em"} />
+            <AiOutlineSetting color={"#402401"} size={"1.5em"} />
           </span>
         )}
       </div>

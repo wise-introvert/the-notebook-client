@@ -2,11 +2,69 @@
   height: 100vh;
   width: 100vw;
   display: grid;
-  place-items: center;
+  grid-template-columns: 1.5fr 1fr;
+
+  .leftFill {
+    height: 100%;
+    width: 100%;
+    background: rgba(64, 36, 1, 0.8);
+    display: grid;
+    place-items: center;
+
+    .leftContent {
+      height: 70%;
+      width: 70%;
+      min-height: 450px;
+      min-width: 450px;
+      background: url("../../lib/assets/images/dude.svg");
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .authFormContainer {
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    display: grid;
+    place-items: center;
+
+    .auth {
+      box-shadow: none;
+    }
+  }
 }
 
 .logo {
   height: 120px;
   width: 120px;
   object-fit: contain;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    grid-template-columns: unset;
+    place-items: center;
+
+    .leftFill {
+      display: none;
+
+      .leftContent {
+        height: 0;
+        width: 0;
+        min-height: 0;
+        min-width: 0;
+        display: none;
+      }
+    }
+
+    .authFormContainer {
+      height: 100%;
+      width: 100%;
+
+      .auth {
+      }
+    }
+  }
 }
