@@ -96,7 +96,7 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
     <div className={styles.container}>
       <Navbar logo={logo} />
       <div style={{ paddingTop: "64px" }}>
-        <span className="title">{getTitle(selection[0])}</span>
+        <span className={`title ${styles.heading}`}>{getTitle(selection[0])}</span>
         <div className={styles.content}>
           {(selection as any[]).map((s: any) => (
             <Card
