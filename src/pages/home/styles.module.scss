@@ -1,6 +1,7 @@
 .container {
   height: 100vh;
   width: 100vw;
+
   justify-content: center;
   align-items: center;
 
@@ -15,9 +16,11 @@
       width: 50%;
       height: 50%;
       object-fit: contain;
-  
-      }
-  }  
+    }
+  }
+  .titles {
+    font-family: "Abrilfatface";
+  }
 
   .instruction {
     padding-left: 30px;
@@ -58,7 +61,7 @@
         bottom: 1em;
         right: 1em;
       }
-    } 
+    }
   }
 }
 

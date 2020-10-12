@@ -22,9 +22,7 @@ export const AuthenticationPage: React.FunctionComponent<AuthenticationPageProps
     >
       <Authentication.Logo
         className={styles.logo}
-        src={
-          "https://livethewyatt.com/wp-content/uploads/2015/10/placeholder-circle.png"
-        }
+      
       />
       <Authentication.Form />
       <Authentication.MessageBox />
