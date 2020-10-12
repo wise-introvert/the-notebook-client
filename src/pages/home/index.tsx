@@ -93,9 +93,14 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
     );
   }
 
-  return false ? (
-    <pre>{JSON.stringify(data, null, 2)}</pre>
-  ) : (
+  if (data?.errors) {
+    return (
+      <div className={styles.container}>
+        <img src={errorSVG} className={styles.error} />
+      </div>
+    );
+  }
+  return (
     <div className={styles.container}>
       <Navbar logo={logo} />
       <div style={{ paddingTop: "64px" }}>
