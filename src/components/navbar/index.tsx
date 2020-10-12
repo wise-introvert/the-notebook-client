@@ -1,10 +1,10 @@
 import * as React from "react";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineSetting } from "react-icons/ai";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import styles from "./styles.module.scss";
 import getConfig, { Config } from "../../config";
-import { isLoggedIn } from "../../lib";
+import { isLoggedIn, isBoss } from "../../lib";
 import { useMutation } from "@apollo/client";
 import { LogoutMutation } from "../../api";
 
@@ -19,27 +19,47 @@ const _Navbar: React.FunctionComponent<NavbarProps> = ({
   className,
   history
 }: NavbarProps): React.ReactElement => {
-  const [logout, { data, loading, error }] = useMutation(LogoutMutation);
+  const [logout, { loading }] = useMutation(LogoutMutation);
 
   return (
     <nav className={`${styles.navbar} ${className && className}`}>
       {logo ? (
         <img src={logo} alt={"The Notebook"} className={styles.logo} />
       ) : (
-        <h3>The Notebook</h3>
-      )}
-      {isLoggedIn() ? (
-        <button
-          disabled={loading}
+        <span
           onClick={() => {
-            logout().then(() => history.push(config.routes.user.auth));
+            history.push(config.routes.home.root);
           }}
+          className={styles.logo}
         >
-          {loading ? "Logging out..." : "Logout"}
-        </button>
-      ) : (
-        <AiOutlineUser size={"1.5em"} />
+          <h3>The Notebook</h3>
+        </span>
       )}
+      <div className={styles.navbarLinks}>
+        {isLoggedIn() ? (
+          <button
+            disabled={loading}
+            onClick={() => {
+              logout().then(() => history.push(config.routes.user.auth));
+            }}
+          >
+            {loading ? "Logging out..." : "Logout"}
+          </button>
+        ) : (
+          <AiOutlineUser size={"1.5em"} />
+        )}
+        {isBoss() && (
+          <span
+            onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
+              e.preventDefault();
+              history.push(config.routes.admin.root);
+            }}
+            className={styles.settings}
+          >
+            <AiOutlineSetting size={"1.5em"} />
+          </span>
+        )}
+      </div>
     </nav>
   );
 };

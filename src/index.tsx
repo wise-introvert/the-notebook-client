@@ -12,7 +12,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./index.scss";
 import getConfig, { Config } from "./config";
 import * as serviceWorker from "./serviceWorker";
-import { HomePage, AuthenticationPage } from "./pages";
+import { HomePage, AuthenticationPage, AdminPage } from "./pages";
 import { LockedRoute, ProtectedRoute } from "./components";
 
 const config: Config = getConfig();
@@ -35,6 +35,11 @@ ReactDOM.render(
             exact
             path={config.routes.user.auth}
             component={AuthenticationPage}
+          />
+          <ProtectedRoute
+            exact
+            path={config.routes.admin.root}
+            component={AdminPage}
           />
           <ProtectedRoute
             exact

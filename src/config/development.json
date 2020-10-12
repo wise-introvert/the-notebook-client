@@ -4,6 +4,9 @@
     "home": {
       "root": "/"
     },
+    "admin": {
+      "root": "/admin"
+    },
     "user": {
       "root": "/user",
       "profile": "/me",
@@ -21,4 +24,3 @@
     }
   }
 }
-

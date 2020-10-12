@@ -9,6 +9,9 @@ export type Config = {
     home: {
       root: string;
     };
+    admin: {
+      root: string;
+    };
     user: {
       root: string;
       profile: string;
