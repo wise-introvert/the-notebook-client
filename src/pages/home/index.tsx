@@ -6,7 +6,6 @@ import { RefreshMutation } from "../../api";
 import { Card, Navbar } from "../../components";
 import { Course, Data, Department, Subject, data } from "./fake.data";
 import styles from "./styles.module.scss";
-import errorSVG from "../../lib/assets/images/error.svg";
 
 type Selection = Department[] | Course[] | Subject[] | Document[];
 type All = Department | Course | Subject | Document;
@@ -133,10 +132,14 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
                 }
               }}
               className={styles.card}
-            >
+            ><div className = {styles.title}>
               {s.name}
+              </div>
             </Card>
           ))}
+        </div>
+        <div className = {styles.instruction} >
+          <img src = "../../lib/assets/images/logo.svg" height = "200em" width ="200em" ></img>
         </div>
       </div>
     </div>

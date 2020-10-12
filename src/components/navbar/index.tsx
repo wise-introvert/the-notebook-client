@@ -30,6 +30,7 @@ const _Navbar: React.FunctionComponent<NavbarProps> = ({
       )}
       {isLoggedIn() ? (
         <button
+          className = {styles.logoutButton}
           disabled={loading}
           onClick={() => {
             logout().then(() => history.push(config.routes.user.auth));
