@@ -24,7 +24,12 @@ const _Navbar: React.FunctionComponent<NavbarProps> = ({
   return (
     <nav className={`${styles.navbar} ${className && className}`}>
       {logo ? (
-        <img src={logo} alt={"The Notebook"} className={styles.logo} />
+        <img
+          onClick={() => history.push(config.routes.home.root)}
+          src={logo}
+          alt={"The Notebook"}
+          className={styles.logo}
+        />
       ) : (
         <span
           onClick={() => {

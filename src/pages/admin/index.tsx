@@ -5,6 +5,7 @@ import { RouteComponentProps } from "react-router";
 import { Modal, Card, Navbar } from "../../components";
 import { AddUserForm } from "./forms";
 import styles from "./styles.module.scss";
+import logo from "../../lib/assets/images/logo.svg";
 
 type AdminProps = RouteComponentProps<{}>;
 type Option = {
@@ -24,7 +25,7 @@ export const AdminPage: React.FunctionComponent<AdminProps> = (): React.ReactEle
 
   return (
     <>
-      <Navbar />
+      <Navbar logo={logo} />
       <Container>
         <Grid container spacing={1} style={{ paddingTop: "calc(64px + 1em)" }}>
           {options.map((option: Option) => (
@@ -39,7 +40,7 @@ export const AdminPage: React.FunctionComponent<AdminProps> = (): React.ReactEle
                     setOpen(true);
                   }}
                 >
-                  {option.label}
+                  <span className={styles.title}>{option.label}</span>
                 </Card>
               </Grid>
               <Grid item xs={2} />

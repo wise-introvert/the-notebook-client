@@ -58,6 +58,7 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
     console.log("data: ", data);
     if (data) {
       setL(false);
+      window.scrollTo(0, 0);
       setSelection(data.courses);
     }
   }, [data]);
