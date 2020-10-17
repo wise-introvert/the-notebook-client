@@ -1,9 +1,9 @@
-import { useLazyQuery, gql, useMutation } from "@apollo/client";
+import { useLazyQuery, gql, useMutation, ApolloError } from "@apollo/client";
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
 
 import { RefreshMutation } from "../../api";
-import { Card, Navbar } from "../../components";
+import { Card, Navbar, Spinner } from "../../components";
 import { Course, Department, Subject } from "./fake.data";
 import styles from "./styles.module.scss";
 import logo from "../../lib/assets/images/logo.svg";
@@ -17,23 +17,25 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
   const [l, setL] = React.useState<boolean>(true);
   const [refresh, { loading: refreshLoading }] = useMutation(RefreshMutation);
   const [history, setHistory] = React.useState<Selection[]>([]);
-  const [getData, { data, loading, error }] = useLazyQuery(gql`
-    query get {
-      courses {
-        id
-        name
-        subjects {
+  const [getData, { data, loading, error }] = useLazyQuery(
+    gql`
+      query get {
+        courses {
           id
           name
-          documents {
+          subjects {
             id
             name
-            url
+            documents {
+              id
+              name
+              urls
+            }
           }
         }
       }
-    }
-  `);
+    `
+  );
   const [selection, setSelection] = React.useState<Selection>({} as Selection);
 
   React.useEffect(() => {
@@ -42,7 +44,6 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
   }, []);
 
   React.useEffect(() => {
-    console.log("error: ", error?.message);
     setL(true);
     if (error?.message.toLowerCase().includes("access")) {
       refresh().then(() => getData());
@@ -51,11 +52,9 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
 
   React.useEffect(() => {
     setHistory((oldHistory: any) => [...oldHistory, selection]);
-    console.log(history);
   }, [selection]);
 
   React.useEffect(() => {
-    console.log("data: ", data);
     if (data) {
       setL(false);
       window.scrollTo(0, 0);
@@ -77,29 +76,26 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
     return current.__typename;
   };
 
-  if (l || !selection) {
-    return <div>Loading</div>;
-  }
-
-  if (refreshLoading || loading || !data || l) {
-    return <div>loading</div>;
-  }
-
   if (error) {
     return (
-      <div className={styles.container}>
-        <img src={errorSVG} className={styles.error} />
-      </div>
+      <>
+        <Navbar logo={logo} />
+        <div className={styles.errorContainer} />
+      </>
     );
   }
 
-  if (data?.errors) {
+  if (refreshLoading || loading || l || !selection) {
     return (
-      <div className={styles.container}>
-        <img src={errorSVG} className={styles.error} />
-      </div>
+      <>
+        <Navbar logo={logo} />
+        <div className={styles.spinnerContainer}>
+          <Spinner />
+        </div>
+      </>
     );
   }
+
   return (
     <div className={styles.container}>
       <Navbar logo={logo} />
@@ -108,12 +104,12 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
           {getTitle(selection[0])}
         </span>
         <div className={styles.content}>
-          {(selection as any[]).map((s: any) => (
+          {(selection as any[]).map((s: any, index: number) => (
             <Card
               key={s.id}
               onClick={() => {
-                if ("url" in s) {
-                  window.open(s.url, "_blank");
+                if ("urls" in s) {
+                  window.open(s.urls[index], "_blank");
                 } else {
                   setSelection(extractArray(s) as any);
                 }
