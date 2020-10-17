@@ -29,7 +29,7 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
             documents {
               id
               name
-              urls
+              url
             }
           }
         }
@@ -78,10 +78,9 @@ export const HomePage: React.FunctionComponent<HomePageProps> = (): React.ReactE
 
   if (error) {
     return (
-      <>
+      <div className={styles.errorContainer}>
         <Navbar logo={logo} />
-        <div className={styles.errorContainer} />
-      </>
+      </div>
     );
   }
 
