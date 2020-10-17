@@ -76,6 +76,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .errorContainer {
+    background-size: 100%;
+  }
+
   .container {
     .spinnerContainer {
       display: grid;
